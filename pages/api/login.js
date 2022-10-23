@@ -6,7 +6,7 @@ export default function handler(req, res) {
     }
 
     if (whitelist[req.body.pin]) {
-        res.status(200).json(whitelist[req.body.pin]);
+        res.status(200).json({ token: 'DUMMY' });
     } else {
         res.status(401).send('Unauthorized')
     }

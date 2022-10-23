@@ -4,9 +4,11 @@ import Layout from '../components/Layout'
 import '../styles/globals.css'
 
 function MyApp({ Component, pageProps }) {
+  const [token, setToken] = React.useState();
+
   return (
-    <Layout>
-      <Component {...pageProps} />
+    <Layout token={token}>
+      <Component {...pageProps} token={token} setToken={setToken} />
     </Layout>
   )
 }

@@ -1,8 +1,9 @@
 import React from 'react';
 import Router from 'next/router';
+import APIClient from '../services/APIClient';
 import styles from '../styles/Login.module.css';
 
-export default function Login() {
+export default function Login({ setToken }) {
     const [pin, setPin] = React.useState([])
 
     function handleClick(num) {
@@ -12,30 +13,21 @@ export default function Login() {
     }
 
     React.useEffect(() => {
+        function onSuccess(token) {
+            setToken(token);
+            Router.push('/dashboard');
+        }
+
+        function onFailure() {
+            alert('Bad pin. Try again.');
+            setPin([])
+        }
+
         if (pin.length === 4) {
             // check validity of this pin
-            fetch('/api/login', {
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                method: 'POST',
-                body: JSON.stringify({
-                    pin: pin.join('')
-                })
-            }
-            ).then(res => res.json()).then(json => {
-                // if success, proceed / redirect
-                //...
-                Router.push('/dashboard');
-                console.log(json)
-            })
-            .catch(err => {
-                // if error, clear pin and alert user
-                alert('Boo! Try again');
-                setPin([])
-            })
+            APIClient.login(pin, onSuccess, onFailure)
         }
-    }, [pin])
+    }, [pin, setToken])
 
     return (
         <>
