@@ -67,14 +67,14 @@ export default function Dashboard({ token }) {
     }
 
     return (
-        <div>
+        <div className={styles.container}>
             <h1>Greetings, Aaron.</h1>
             <div>
                 <Image 
                     src="/images/skelly.png" 
                     alt="skeleton" 
-                    width="100"
-                    height="100"
+                    width="150"
+                    height="150"
                 />
             </div>
             <h2 className={styles.balance}>
@@ -88,20 +88,54 @@ export default function Dashboard({ token }) {
                 {balance}
             </h2>
 
-            <input type="number" value={withdrawal} onChange={(e) => onWithdrawalChange(e.target.value)} />
-            <button onClick={() => handleWithdraw()}>Withdraw</button>
+            <div className={styles.controls}>
+                <div className={styles.control}>
+                    <input
+                        className={styles.input}
+                        type="number"
+                        value={withdrawal} 
+                        onChange={(e) => onWithdrawalChange(e.target.value)} />
+                    <button 
+                        className={styles.button} 
+                        onClick={() => handleWithdraw()}>
+                        Withdraw
+                    </button>
+                </div>
 
-            <br />
+                <div className={styles.control}>
+                    <input 
+                        className={styles.input}
+                        type="number" 
+                        value={deposit} 
+                        onChange={(e) => onDepositChange(e.target.value)} />
+                    <button 
+                        className={styles.button} 
+                        onClick={() => handleDeposit()}>
+                        Deposit
+                    </button>
+                </div>
+            </div>
 
-            <input type="number" value={deposit} onChange={(e) => onDepositChange(e.target.value)} />
-            <button onClick={() => handleDeposit()}>Deposit</button>
-
-            <div className={styles.walletContainer}>
+            <div className={styles.footerContainer}>
                 <Image 
-                    src="/images/bone-pile.png"
-                    alt="wallet"
-                    width="270"
-                    height="194"
+                    src="/images/fireburning.gif"
+                    alt="fire"
+                    width="100"
+                    height="185"
+                />
+                <div className={styles.bones}>
+                    <Image 
+                        src="/images/bone-pile.png"
+                        alt="wallet"
+                        width="270"
+                        height="194"
+                    />
+                </div>
+                <Image 
+                    src="/images/fireburning.gif"
+                    alt="fire"
+                    width="100"
+                    height="185"
                 />
             </div>
         </div>

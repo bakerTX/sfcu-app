@@ -1,21 +1,51 @@
 .balance {
     display: flex;
     align-items: center;
-}
-
-.walletContainer {
-    position: absolute;
-    bottom: 1rem;
-    left: 50%;
-
-    transform: translateX(-50%) translateY(50%);
-}
-
-.walletContainer p {
-    margin-bottom: 0;
-    text-align: center;
-
-    display: flex;
-    align-items: center;
     justify-content: center;
+}
+
+.footerContainer {
+    position: absolute;
+    bottom: -1rem;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.container {
+    text-align: center;
+}
+
+.bones {
+    position: absolute;
+    bottom: -37%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.controls {
+
+}
+
+.control {
+    margin-bottom: 1rem;
+}
+
+.input {
+    min-height: 2rem;
+    background: transparent;
+    color: white;
+    border-color: orange;
+    margin-right: 1rem;
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
+.button {
+    min-width: 5rem;
+    color: white;
+    background: transparent;
+    border-color: orange;
+    min-height: 2rem;
 }
