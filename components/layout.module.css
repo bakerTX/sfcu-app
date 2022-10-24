@@ -1,13 +1,13 @@
 .container {
-    max-width: 800px;
-    margin: 0 auto;
-    position: relative;
-    min-height: 100vh;
-    padding-top: 1rem;
-    overflow: hidden;
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  min-height: 100vh;
+  padding-top: 1rem;
+  overflow: hidden;
 }
 
-.nav > *{
-    margin-left: 0;
-    margin-right: 1rem;
+.nav > * {
+  margin-left: 0;
+  margin-right: 1rem;
 }

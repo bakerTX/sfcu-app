@@ -1,17 +1,23 @@
-import React from 'react'
+import React from "react";
 
-import Layout from '/components/layout'
-import '/styles/globals.css'
+import Layout from "/components/layout";
+import "/styles/globals.css";
 
 function MyApp({ Component, pageProps }) {
-  const [token, setToken] = React.useState();
-  const [name, setName] = React.useState('');
+  const [token, setToken] = React.useState("");
+  const [name, setName] = React.useState("");
 
   return (
     <Layout token={token}>
-      <Component {...pageProps} token={token} setToken={setToken} name={name} setName={setName} />
+      <Component
+        {...pageProps}
+        token={token}
+        setToken={setToken}
+        name={name}
+        setName={setName}
+      />
     </Layout>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

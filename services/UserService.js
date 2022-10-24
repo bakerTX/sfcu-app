@@ -1,12 +1,12 @@
 const UserService = {
-    users: {
-        '1337': {
-            name: 'Aaron',
-        },
+  users: {
+    1337: {
+      name: "Aaron",
     },
-    getUser(pin) {
-        return this.users[pin];
-    }
-}
+  },
+  getUser(pin) {
+    return this.users[pin];
+  },
+};
 
 export default UserService;
