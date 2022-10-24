@@ -6,36 +6,36 @@ import styles from '/styles/Dashboard.module.css'
 
 import APIClient from '/services/APIClient';
 
-export default function Dashboard({ token }) {
-    const [balance, setBalance] = React.useState(5000);
+export default function Dashboard({ token, name }) {
+    const [balance, setBalance] = React.useState(0);
 
     const [withdrawal, setWithdrawal] = React.useState(0);
     const [deposit, setDeposit] = React.useState(0);
 
     function handleWithdraw() {
-        function onSuccess(newBalance) {
+        function onSuccess(newBalance, message) {
             setBalance(newBalance);
-            alert('Withdrew successfully');
+            alert(message);
             setWithdrawal(0);
         }
-        function onFailure() {
-            alert('The withdrawal failed.')
+        function onFailure(message) {
+            alert(message);
         }
         if (withdrawal > balance) {
-            alert('Not enough bones to withdraw.');
+            alert('Withdrawal amount is greater than daily limit.');
         } else {
             APIClient.withdraw(withdrawal, onSuccess, onFailure);
         }
     }
 
     function handleDeposit() {
-        function onSuccess(newBalance) {
+        function onSuccess(newBalance, message) {
             setBalance(newBalance)
-            alert('Deposited successfully.')
+            alert(message)
             setDeposit(0);
         }
-        function onFailure() {
-            alert('The deposit failed');
+        function onFailure(message) {
+            alert(message);
         }
         APIClient.deposit(deposit, onSuccess, onFailure);
     }
@@ -68,7 +68,7 @@ export default function Dashboard({ token }) {
 
     return (
         <div className={styles.container}>
-            <h1>Greetings, Aaron.</h1>
+            <h1>Greetings, {name}.</h1>
             <div>
                 <Image 
                     src="/images/skelly.png" 

@@ -1,13 +1,11 @@
-export default function handler(req, res) {
-    const whitelist = {
-        '1337': {
-            name: 'Aaron Baker',
-        },
-    }
+import UserService from '/services/UserService';
 
-    if (whitelist[req.body.pin]) {
-        res.status(200).json({ token: 'DUMMY' });
+export default function handler(req, res) {
+    const { pin } = req.body;
+    const user = UserService.getUser(pin)
+    if (user) {
+        res.status(200).json({ status: 200, token: 'abc123', name: user.name });
     } else {
-        res.status(401).send('Unauthorized')
+        res.status(401).json({ status: 401, message: 'No user found.' })
     }
 }

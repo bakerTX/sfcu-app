@@ -3,7 +3,7 @@ import Router from 'next/router';
 import APIClient from '/services/APIClient';
 import styles from '/styles/Login.module.css';
 
-export default function Login({ setToken }) {
+export default function Login({ setToken, setName }) {
     const [pin, setPin] = React.useState([])
 
     function handleClick(num) {
@@ -13,13 +13,14 @@ export default function Login({ setToken }) {
     }
 
     React.useEffect(() => {
-        function onSuccess(token) {
+        function onSuccess(token, name) {
             setToken(token);
+            setName(name);
             Router.push('/dashboard');
         }
 
-        function onFailure() {
-            alert('Bad pin. Try again.');
+        function onFailure(message) {
+            alert(message);
             setPin([])
         }
 
@@ -27,7 +28,7 @@ export default function Login({ setToken }) {
             // check validity of this pin
             APIClient.login(pin, onSuccess, onFailure)
         }
-    }, [pin, setToken])
+    }, [pin, setToken, setName])
 
     return (
         <>

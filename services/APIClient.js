@@ -11,12 +11,14 @@ const APIClient = {
         })
         .then(res => res.json())
         .then(json => {
-            // if success, set dummy token
-            onSuccess(json.token);
+            if (json.status === 200){
+                onSuccess(json.token, json.name);
+            } else {
+                onFailure(json.message);
+            }
         })
-        .catch(err => {
-            // if error, clear pin and alert user
-            onFailure();
+        .catch(e => {
+            onFailure(e);
         })
     },
     getBalance(onSuccess) {
@@ -38,10 +40,14 @@ const APIClient = {
         })
         .then(res => res.json())
         .then(json => {
-            onSuccess(json.balance)
+            if (json.status === 200){
+                onSuccess(json.balance, json.message)
+            } else {
+                onFailure(json.message)
+            }
         })
         .catch(error => {
-            onFailure()
+            onFailure(error)
         })
     },
     deposit(deposit, onSuccess, onFailure) {
@@ -56,10 +62,14 @@ const APIClient = {
         })
         .then(res => res.json())
         .then(json => {
-            onSuccess(json.balance)
+            if (json.status === 200){
+                onSuccess(json.balance, json.message)
+            } else {
+                onFailure(json.message);
+            }
         })
         .catch(error => {
-            onFailure()
+            onFailure(error)
         })
     }
 }
