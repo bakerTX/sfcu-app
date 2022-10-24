@@ -2,9 +2,9 @@ import React from 'react'
 
 import Router from 'next/router'
 import Image from 'next/image'
-import styles from '../styles/Dashboard.module.css'
+import styles from '/styles/Dashboard.module.css'
 
-import APIClient from '../services/APIClient';
+import APIClient from '/services/APIClient';
 
 export default function Dashboard({ token }) {
     const [balance, setBalance] = React.useState(5000);

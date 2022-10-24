@@ -1,7 +1,7 @@
 import React from 'react';
 import Router from 'next/router';
-import APIClient from '../services/APIClient';
-import styles from '../styles/Login.module.css';
+import APIClient from '/services/APIClient';
+import styles from '/styles/Login.module.css';
 
 export default function Login({ setToken }) {
     const [pin, setPin] = React.useState([])

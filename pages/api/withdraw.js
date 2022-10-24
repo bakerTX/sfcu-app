@@ -1,4 +1,4 @@
-import ATMService from '../../services/ATMService';
+import ATMService from '/services/ATMService';
 
 export default function handler(req, res) {
     try {
