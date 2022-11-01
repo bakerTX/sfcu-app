@@ -9,14 +9,14 @@ import APIClient from "/services/APIClient";
 export default function Dashboard({ token, name }) {
   const [balance, setBalance] = React.useState(0);
 
-  const [withdrawal, setWithdrawal] = React.useState(0);
-  const [deposit, setDeposit] = React.useState(0);
+  const [withdrawal, setWithdrawal] = React.useState("");
+  const [deposit, setDeposit] = React.useState("");
 
   function handleWithdraw() {
     function onSuccess(newBalance, message) {
       setBalance(newBalance);
       alert(message);
-      setWithdrawal(0);
+      setWithdrawal("");
     }
     function onFailure(message) {
       alert(message);
@@ -54,18 +54,8 @@ export default function Dashboard({ token, name }) {
     }
   }, [token]);
 
-  function onWithdrawalChange(value) {
-    const parsed = parseInt(value);
-    if (!isNaN(parsed)) {
-      setWithdrawal(parsed);
-    }
-  }
-
-  function onDepositChange(value) {
-    const parsed = parseInt(value);
-    if (!isNaN(parsed)) {
-      setDeposit(parsed);
-    }
+  function isNumerical(val) {
+    return /[0-9]/.test(val);
   }
 
   return (
@@ -92,7 +82,12 @@ export default function Dashboard({ token, name }) {
             className={styles.input}
             type="number"
             value={withdrawal}
-            onChange={(e) => onWithdrawalChange(e.target.value)}
+            onChange={(e) => setWithdrawal(e.target.value)}
+            onKeyPress={(e) => {
+              if (!isNumerical(e.key)) {
+                e.preventDefault();
+              }
+            }}
           />
           <button className={styles.button} onClick={() => handleWithdraw()}>
             Withdraw
@@ -104,7 +99,12 @@ export default function Dashboard({ token, name }) {
             className={styles.input}
             type="number"
             value={deposit}
-            onChange={(e) => onDepositChange(e.target.value)}
+            onChange={(e) => setDeposit(e.target.value)}
+            onKeyPress={(e) => {
+              if (!isNumerical(e.key)) {
+                e.preventDefault();
+              }
+            }}
           />
           <button className={styles.button} onClick={() => handleDeposit()}>
             Deposit
