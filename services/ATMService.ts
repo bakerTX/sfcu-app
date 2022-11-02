@@ -1,7 +1,7 @@
 const ATMService = {
   balance: 10000,
   limit: 5000,
-  withdraw(amount) {
+  withdraw(amount: number) {
     if (amount < 0) {
       throw new Error("Cannot withdraw a negative amount.");
     }
@@ -22,7 +22,7 @@ const ATMService = {
       message: "Withdrew successfully.",
     };
   },
-  deposit(amount) {
+  deposit(amount: number) {
     if (amount < 0) {
       throw new Error("Cannot deposit a negative amount.");
     }

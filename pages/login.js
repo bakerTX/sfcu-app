@@ -36,7 +36,10 @@ export default function Login({ setToken, setName }) {
       <div className={styles.loginGrid}>
         {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
           <button
-            onClick={() => handleClick(num)}
+            onClick={() => {
+              console.log("type", typeof num);
+              handleClick(num);
+            }}
             className={styles.button}
             key={`login-num-${num}`}
           >
