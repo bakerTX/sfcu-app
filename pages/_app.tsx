@@ -1,9 +1,11 @@
 import React from "react";
 
-import Layout from "/components/layout";
+import Layout from "@/components/layout";
 import "/styles/globals.css";
 
-function MyApp({ Component, pageProps }) {
+import type { AppProps } from "next/app";
+
+function MyApp({ Component, pageProps }: AppProps) {
   const [token, setToken] = React.useState("");
   const [name, setName] = React.useState("");
 

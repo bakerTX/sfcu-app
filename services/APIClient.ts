@@ -21,7 +21,7 @@ const APIClient = {
         onFailure(e);
       });
   },
-  getBalance(onSuccess) {
+  getBalance(onSuccess: () => {}) {
     return fetch("/api/getBalance")
       .then((res) => res.json())
       .then((json) => {
@@ -50,7 +50,7 @@ const APIClient = {
         onFailure(error);
       });
   },
-  deposit(deposit, onSuccess, onFailure) {
+  deposit(deposit: number, onSuccess, onFailure) {
     return fetch("/api/deposit", {
       headers: {
         "Content-Type": "application/json",

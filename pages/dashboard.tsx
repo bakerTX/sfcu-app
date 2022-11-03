@@ -4,37 +4,38 @@ import Router from "next/router";
 import Image from "next/image";
 import styles from "/styles/Dashboard.module.css";
 
-import APIClient from "/services/APIClient";
+import APIClient from "@/services/APIClient";
 
-export default function Dashboard({ token, name }) {
-  const [balance, setBalance] = React.useState(0);
+interface Props {
+  token: string;
+  name: string;
+}
+
+export default function Dashboard({ token, name }: Props) {
+  const [balance, setBalance] = React.useState("");
 
   const [withdrawal, setWithdrawal] = React.useState("");
   const [deposit, setDeposit] = React.useState("");
 
   function handleWithdraw() {
-    function onSuccess(newBalance, message) {
+    function onSuccess(newBalance: string, message: string) {
       setBalance(newBalance);
       alert(message);
       setWithdrawal("");
     }
-    function onFailure(message) {
+    function onFailure(message: string) {
       alert(message);
     }
-    if (withdrawal > balance) {
-      alert("Withdrawal amount is greater than daily limit.");
-    } else {
-      APIClient.withdraw(withdrawal, onSuccess, onFailure);
-    }
+    APIClient.withdraw(withdrawal, onSuccess, onFailure);
   }
 
   function handleDeposit() {
-    function onSuccess(newBalance, message) {
+    function onSuccess(newBalance: string, message: string) {
       setBalance(newBalance);
       alert(message);
-      setDeposit(0);
+      setDeposit("");
     }
-    function onFailure(message) {
+    function onFailure(message: string) {
       alert(message);
     }
     APIClient.deposit(deposit, onSuccess, onFailure);
@@ -43,7 +44,7 @@ export default function Dashboard({ token, name }) {
   // Check if user is logged in, otherwise kick them back to the homepage.
   // If they are logged in, query for their current balance.
   React.useEffect(() => {
-    function onSuccess(newBalance) {
+    function onSuccess(newBalance: string) {
       setBalance(newBalance);
     }
 
@@ -54,7 +55,7 @@ export default function Dashboard({ token, name }) {
     }
   }, [token]);
 
-  function isNumerical(val) {
+  function isNumerical(val: string) {
     return /[0-9]/.test(val);
   }
 

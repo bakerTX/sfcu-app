@@ -1,6 +1,7 @@
-import UserService from "/services/UserService";
+import UserService from "@/services/UserService";
+import type { NextApiRequest, NextApiResponse } from "next";
 
-export default function handler(req, res) {
+export default function handler(req: NextApiRequest, res: NextApiResponse) {
   const { pin } = req.body;
   const user = UserService.getUser(pin);
   if (user) {

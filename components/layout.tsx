@@ -1,8 +1,13 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import Link from "next/link";
 import styles from "./layout.module.css";
 
-export default function Layout({ children, token }) {
+interface Props {
+  children: ReactNode;
+  token: string;
+}
+
+export default function Layout({ children, token }: Props) {
   return (
     <div className={styles.container}>
       <div className={styles.nav}>
