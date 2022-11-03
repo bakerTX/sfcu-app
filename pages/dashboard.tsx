@@ -18,31 +18,34 @@ export default function Dashboard({ token, name }: Props) {
   const [deposit, setDeposit] = React.useState("");
 
   function handleWithdraw() {
-    function onSuccess(newBalance: string, message: string) {
-      setBalance(newBalance);
-      alert(message);
-      setWithdrawal("");
-    }
-    function onFailure(message: string) {
-      alert(message);
-    }
-    APIClient.withdraw(withdrawal, onSuccess, onFailure);
+    APIClient.withdraw(
+      withdrawal,
+      (newBalance: string, message?: string) => {
+        setBalance(newBalance);
+        alert(message);
+        setWithdrawal("");
+      },
+      (message: string) => {
+        alert(message);
+      }
+    );
   }
 
   function handleDeposit() {
-    function onSuccess(newBalance: string, message: string) {
-      setBalance(newBalance);
-      alert(message);
-      setDeposit("");
-    }
-    function onFailure(message: string) {
-      alert(message);
-    }
-    APIClient.deposit(deposit, onSuccess, onFailure);
+    APIClient.deposit(
+      deposit,
+      (newBalance: string, message?: string) => {
+        setBalance(newBalance);
+        alert(message);
+        setDeposit("");
+      },
+      (message: string) => {
+        alert(message);
+      }
+    );
   }
 
-  // Check if user is logged in, otherwise kick them back to the homepage.
-  // If they are logged in, query for their current balance.
+  // Check login and get initial balance
   React.useEffect(() => {
     function onSuccess(newBalance: string) {
       setBalance(newBalance);

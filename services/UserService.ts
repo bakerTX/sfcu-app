@@ -1,11 +1,16 @@
 const UserService = {
-  users: {
-    "1337": {
-      name: "Aaron",
+  users: [
+    {
+      name: "Aaron Baker",
+      pin: "1337",
     },
-  },
+  ],
   getUser(pin: string) {
-    return this.users[pin];
+    // Scan the array for a match
+    // Optimize this later so that each login doesn't require a full scan of all users
+    // ...
+    const user = this.users.find((user) => user.pin === pin);
+    return user;
   },
 };
 

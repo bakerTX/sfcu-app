@@ -1,12 +1,16 @@
+type SuccessCallback = (balance: string, message?: string) => void;
+type LoginCallback = (token: string, name: string) => void;
+type FailureCallback = (message: string) => void;
+
 const APIClient = {
-  login(pin, onSuccess, onFailure) {
+  login(pin: string, onSuccess: LoginCallback, onFailure: FailureCallback) {
     return fetch("/api/login", {
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
       body: JSON.stringify({
-        pin: pin.join(""),
+        pin,
       }),
     })
       .then((res) => res.json())
@@ -21,14 +25,18 @@ const APIClient = {
         onFailure(e);
       });
   },
-  getBalance(onSuccess: () => {}) {
+  getBalance(onSuccess: SuccessCallback) {
     return fetch("/api/getBalance")
       .then((res) => res.json())
       .then((json) => {
         onSuccess(json.balance);
       });
   },
-  withdraw(withdrawal, onSuccess, onFailure) {
+  withdraw(
+    withdrawal: string,
+    onSuccess: SuccessCallback,
+    onFailure: FailureCallback
+  ) {
     return fetch("/api/withdraw", {
       headers: {
         "Content-Type": "application/json",
@@ -50,7 +58,11 @@ const APIClient = {
         onFailure(error);
       });
   },
-  deposit(deposit: number, onSuccess, onFailure) {
+  deposit(
+    deposit: string,
+    onSuccess: SuccessCallback,
+    onFailure: FailureCallback
+  ) {
     return fetch("/api/deposit", {
       headers: {
         "Content-Type": "application/json",

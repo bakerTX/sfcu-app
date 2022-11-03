@@ -3,30 +3,33 @@ import Router from "next/router";
 import APIClient from "@/services/APIClient";
 import styles from "/styles/Login.module.css";
 
-export default function Login({ setToken, setName }) {
-  const [pin, setPin] = React.useState([]);
+interface Props {
+  setToken: (token: string) => {};
+  setName: (name: string) => {};
+}
 
-  function handleClick(num) {
-    // add num to pin state
-    const newPin = [...pin, num];
+export default function Login({ setToken, setName }: Props) {
+  const [pin, setPin] = React.useState<Array<string>>([]);
+
+  function handleClick(key: string) {
+    const newPin = [...pin, key];
     setPin(newPin);
   }
 
   React.useEffect(() => {
-    function onSuccess(token, name) {
-      setToken(token);
-      setName(name);
-      Router.push("/dashboard");
-    }
-
-    function onFailure(message) {
-      alert(message);
-      setPin([]);
-    }
-
     if (pin.length === 4) {
-      // check validity of this pin
-      APIClient.login(pin, onSuccess, onFailure);
+      APIClient.login(
+        pin.join(""),
+        (token: string, name: string) => {
+          setToken(token);
+          setName(name);
+          Router.push("/dashboard");
+        },
+        (message: string) => {
+          alert(message);
+          setPin([]);
+        }
+      );
     }
   }, [pin, setToken, setName]);
 
@@ -34,24 +37,23 @@ export default function Login({ setToken, setName }) {
     <>
       <h2>Login to continue</h2>
       <div className={styles.loginGrid}>
-        {[1, 2, 3, 4, 5, 6, 7, 8, 9].map((num) => (
+        {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((key) => (
           <button
             onClick={() => {
-              console.log("type", typeof num);
-              handleClick(num);
+              handleClick(key);
             }}
             className={styles.button}
-            key={`login-num-${num}`}
+            key={`login-key-${key}`}
           >
-            {num}
+            {key}
           </button>
         ))}
       </div>
 
       <div className={styles.flex}>
-        {[0, 1, 2, 3].map((num) => (
-          <div key={`answer-slot-${num}`} className={styles.answerSlot}>
-            {pin[num]}
+        {[0, 1, 2, 3].map((key) => (
+          <div key={`answer-slot-${key}`} className={styles.answerSlot}>
+            {pin[key]}
           </div>
         ))}
       </div>
